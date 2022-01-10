@@ -17,25 +17,29 @@ public class Calculadora extends Frame {
     int n2 = 0;
     String simbolo = "";
 
-    public Calculadora() {
+    public Calculadora() { //Dentro del constructor declararemos todos los parametros que sean necesarios para poder mostrar de forma correcta la aplicación
 
+        //Declaramos los parámetros básicos del panel
         Panel pnl = new Panel();
         setSize(400, 500);
         setLayout(new BorderLayout());
         this.add(pnl);
         setLocationRelativeTo(null);
 
+        //Agregamos los Layout
         Panel numeros = new Panel(new GridLayout(4, 3));
         add("Center", numeros);
 
         var operadores = new Panel(new GridLayout(4, 1));
         add("East", operadores);
 
+        //Creamos el panel donde se va a mostrar todas las operaciones que hagamos
         var txt = new TextField();
         txt.setFont(new Font("Script fonts", Font.BOLD, 50));     
         txt.setEnabled(false);
         add(txt, "North");
 
+        //Declaramos todos los botones
         var nueve = new Button("9");
         numeros.add(nueve);
 
@@ -86,6 +90,7 @@ public class Calculadora extends Frame {
 
         setVisible(true);
 
+        //Añadimos las funciones necesarias para cada botón
         nueve.addActionListener((ActionEvent e) -> {
             c = txt.getText();
             s = "9";
@@ -191,21 +196,21 @@ public class Calculadora extends Frame {
 
     ;
     
-    public static int calcular(String operacion) {
+    public static int calcular(String operacion) { //Este es el metodo con el cual vamos a realizar las operaciones
         int rest = 0;
         String simb = "";
         String n1 = "";
         int num1 = 0;
 
-        for (int k = 0; k < operacion.length(); k++) {
-            if (operacion.charAt(k) > 41 && operacion.charAt(k) < 48) {
+        for (int k = 0; k < operacion.length(); k++) { //Se recorre el array para poder realizar la operación
+            if (operacion.charAt(k) > 41 && operacion.charAt(k) < 48) { //Comprobamso si existe algun operador para guardarlo dentro de la variable Simbolo ya si poder usarlo en un futuro
                 simb = operacion.charAt(k) + "";
                 n1 = "";
-            } else {
+            } else { //En caso de que no exista ningun operador en esa posición se agregara un dígito al número actual
                 n1 = n1 + operacion.charAt(k);
             }
 
-            if (k + 1 == operacion.length() || operacion.charAt(k + 1) < 48) {
+            if (k + 1 == operacion.length() || operacion.charAt(k + 1) < 48) { //Aqui se realiza la operación en caso de que el siguiente dígito sea un operador o sea el final del String
                 num1 = Integer.parseInt(n1);
                 rest = switch (simb) {
                     case "*" ->
